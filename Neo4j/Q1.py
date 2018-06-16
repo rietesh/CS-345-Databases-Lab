@@ -1,0 +1,7 @@
+# query1 = "match((n:user)-[:tweets]->(t:tweet)) where n.author_screen_name='aeriyanakiss96' return t;"
+# query2 = "match((n:user)-[:tweets]->(k:tweet)-[:mentions]->(m:user)) where n.author_screen_name='Sgrl_Pratima' return m;"
+# query3 = "match((a:hashtag)<-[:contains_hashtag]-(t:tweet)-[:contains_hashtag]->(b:hashtag)) where a.hashtag<b.hashtag return a.hashtag,b.hashtag,count(*) as cnt order by cnt DESC limit 20;"
+# query4 = "match((a:hashtag)<-[:contains_hashtag]-(t:tweet)-[:mentions]->(b:user)) return a.hashtag,b.author_screen_name ,collect(t.tid),count(*) as cnt order by cnt DESC limit 20;"
+# query5 = "match((l:location)-[:hastweet]->(t:tweet)-[:contains_hashtag]->(h:hashtag)) where l.location='Texas, USA' return h;"
+# query6="match (a:user)-[:tweets]->(:tweet)-[:retweet_of]->(t:tweet)<-[:tweets]-(b:user) return a.author_screen_name, b.author_screen_name,count(*) as cnt order by cnt desc;"
+# query7="match (a:user)-[:tweets]->(:tweet)-[:reply_of]->(t:tweet)<-[:tweets]-(b:user) return a.author_screen_name, b.author_screen_name,count(*) as cnt order by cnt desc;"

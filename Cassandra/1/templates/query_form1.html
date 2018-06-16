@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+
+{% block main %}
+
+<div class="container">
+    <div>
+        <div style="text-align: center">
+            <h3>
+                <p>Given an <b><u>author name</u></b>, display all tweets posted by that author sorted by decreasing order of date and time.</p>
+            </h3>
+        </div>
+        <form method="post" action="/query/1">
+            <div class="form-group">
+                <label for="authornameid">Author Name</label>
+                <input type="text" class="form-control" id="authornameid" aria-describedby="help text" placeholder="Enter Author name" name="authorname">
+            </div>
+          <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
+        </form>
+    </div>
+
+    {% if request.method == "POST" %}
+        {% if status == 1 %}
+            <div class="container" >
+                <br>
+                <table>
+                    <tr>
+                        <th>Sno</th>
+                        <th>Author</th>
+                        <th>Datetime</th>
+                        <th>Tid</th>
+                        <th>Location</th>
+                        <th>Language</th>
+                        <th>Tweet Text</th>
+                    </tr>
+                    {% for i in output%}
+                        <tr>
+                            <td></td>
+                            <td>{{ i.author}}</td>
+                            <td>{{ i.datetime}}</td>
+                            <td>{{ i.tid}}</td>
+                            <td>{{ i.location}}</td>
+                            <td>{{ i.lang}}</td>
+                            <td>{{ i.tweet_text}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        {% else %}
+            <div class="container" style="text-align: center">
+                <h4>{{error}}</h4>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% endblock main %}
+<!--</body>-->
+<!--</html>-->

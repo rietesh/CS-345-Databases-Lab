@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block main %}
+<div class="container">
+    <div>
+        <div style="text-align: center">
+            <h3>
+                <p>Given an <b><u>Date</u></b>, Delete all tweets of that date.</p>
+            </h3>
+        </div>
+        <form method="post" action="/query/8">
+            <div class="form-group">
+                <label for="authornameid"><h4><b>Date</b></h4></label>
+                <input type="date" class="form-control" id="authornameid" aria-describedby="help text" placeholder="Enter Author name" name="date">
+            </div>
+          <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
+        </form>
+    </div>
+{% if request.method == "POST" %}
+        {% if status == 1 %}
+            <div class="container" style="text-align: center">
+                <h4>Delete Success</h4>
+                <!--<h4>Deleted {{count }} rows.</h4>-->
+            </div>
+        {% else %}
+            <div class="container" style="text-align: center">
+                <h4>{{error}}</h4>
+            </div>
+        {% endif %}
+{% endif %}
+</div>
+
+{% endblock main %}

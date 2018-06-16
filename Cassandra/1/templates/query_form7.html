@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+
+{% block main %}
+<div class="container">
+    <div>
+        <div style="text-align: center">
+            <h3>
+                <p>Given an <b><u>Date</u></b>, display top 20 hashtags in past 7 days.</p>
+            </h3>
+        </div>
+        <form method="post" action="/query/7">
+            <div class="form-group">
+                <label for="dateid">Date</label>
+                <input type="date" class="form-control" id="dateid" aria-describedby="help text" placeholder="Enter Date" name="date">
+            </div>
+          <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
+        </form>
+    </div>
+
+    {% if request.method == "POST" %}
+        {% if status == 1 %}
+            <div class="container" >
+                {% for i in output %}
+                    {{ i }}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="container" style="text-align: center">
+                <h4>{{error}}</h4>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% endblock main %}

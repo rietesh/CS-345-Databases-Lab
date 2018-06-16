@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS345</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<style>
+    #flexcon {
+        display: flex; /*or inline-flex*/
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    table {
+        counter-reset: rowNumber;
+    }
+
+    table tr:not(:first-child) {
+        counter-increment: rowNumber;
+    }
+
+    table tr td:first-child::before {
+        content: counter(rowNumber);
+        min-width: 1em;
+        margin-right: 0.5em;
+    }
+</style>
+<body>
+<div>
+    <br>
+    <div class="container">
+        <h2 style="text-align: center;">Cassandra Assignment</h2>
+    </div>
+    <br>
+</div>
+
+<div class="container">
+    <div id="flexcon">
+        <div>
+            <a href="/query/1">
+                <button class="btn btn-info">Query 1</button>
+            </a>
+        </div>
+        <div>
+            <a href="/query/2">
+                <button class="btn btn-info">Query 2</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div>
+    {% block main %}
+    {% endblock %}
+    {% if query==1 %}
+    <div class="container">
+        <div>
+            <div style="text-align: center">
+                <h3>
+                    <p>Given the <b><u>hashtag</u></b>, retrieve the top 3 user-mentions (author_screen_names)
+                    that co-occur with this hashtag. A hashtag and a user-mention is said to be cooccurring
+                    if they co-occur in the same tweet </p>
+                </h3>
+            </div>
+
+            <form method="post" action="/query/1">
+                <div class="form-group">
+                    <label for="hashtagid">Author Name</label>
+                    <input type="text" class="form-control" id="hashtagid" aria-describedby="help text" placeholder="Enter Hashtag" name="hashtag">
+                </div>
+                <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
+            </form>
+        </div>
+
+        {% if request.method == "POST" %}
+        {% if status == 1 %}
+        <div class="container" style="text-align: center;">
+            <br>
+            <table>
+                <tr>
+                    <th>Sno</th>
+                    <th>Hashtag</th>
+                    <th>User Mention</th>
+                    <th>Tids</th>
+                    <th>Cnt</th>
+                </tr>
+                {% for i in output%}
+                <tr>
+                    <td></td>
+                    <td>{{ i.hashtag}}</td>
+                    <td>{{ i.author_screen_name}}</td>
+                    <td>{{ i.tids }}</td>
+                    <td>{{ i.cnt }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br><br><br><br><br>
+            {{output2}}
+            <br><br><br><br><br>
+
+        </div>
+        {% else %}
+            <div class="container" style="text-align: center">
+                <h4>{{error}}</h4>
+            </div>
+        {% endif %}
+        {% endif %}
+    </div>
+    {% elif query==2 %}
+    <div class="container">
+        <div>
+            <div style="text-align: center">
+                <h3>
+                    <p>Given a <b><u>user-mention (author_screen_names) </u></b>, retrieve the top 3 hashtags cooccurring  with this user mention. A hashtag and a user mention is said to be  co-occurring if they co-occur in the same tweet(tweet_type : Tweet).</p>
+                </h3>
+            </div>
+            <form method="post" action="/query/2">
+                <div class="form-group">
+                    <label for="usermentionid">Keyword</label>
+                    <input type="text" class="form-control" id="usermentionid" aria-describedby="help text" placeholder="Enter user mention" name="usermention">
+                </div>
+                <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
+            </form>
+        </div>
+
+        {% if request.method == "POST" %}
+        {% if status == 1 %}
+        <div class="container" style="text-align: center;">
+            <br>
+            <table>
+                <tr>
+                    <th>Sno</th>
+                    <th>User Mention</th>
+                    <th>Hashtag</th>
+                    <th>Tids</th>
+                    <th>Cnt</th>
+                </tr>
+                {% for i in output%}
+                <tr>
+                    <td></td>
+                    <td>{{ i.author_screen_name}}</td>
+                    <td>{{ i.hashtag}}</td>
+                    <td>{{ i.tids}}</td>
+                    <td>{{ i.cnt}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br><br><br><br><br>
+            {{output2}}
+            <br><br><br><br><br>
+
+        </div>
+        {% else %}
+            <div class="container" style="text-align: center">
+                <h4>{{error}}</h4>
+            </div>
+        {% endif %}
+        {% endif %}
+    </div>
+{%endif%}
+
+</div>
+
+<div style="position: fixed;bottom: 0;width: 100%;text-align: center;background: #4db5d9;color: black;">
+    <h3>
+        <p style="margin: 10px;">Shubham Singhal (150101072)</p>
+    </h3>
+</div>
+
+</body>
+</html>
